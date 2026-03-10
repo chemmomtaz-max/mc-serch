@@ -50,7 +50,7 @@ const leadSchema = {
   }
 };
 
-export async function generateLeads(chemical: string, region: string): Promise<Lead[]> {
+export async function generateLeads(chemical: string, region: string, retryCount = 0): Promise<Lead[]> {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) throw new Error("GEMINI_API_KEY is missing");
 
@@ -114,12 +114,20 @@ export async function generateLeads(chemical: string, region: string): Promise<L
     return JSON.parse(text);
   } catch (e: any) {
     console.error("API Error:", e);
+    
+    // Automatic retry for Rate Limit (429)
+    if ((e.message?.includes("429") || e.message?.includes("quota")) && retryCount < 2) {
+      console.log(`Rate limit hit. Retrying in 5 seconds... (Attempt ${retryCount + 1})`);
+      await new Promise(resolve => setTimeout(resolve, 5000));
+      return generateLeads(chemical, region, retryCount + 1);
+    }
+
     if (e.message?.includes("429") || e.message?.includes("quota")) {
-      throw new Error("سهمیه جستجوی رایگان به پایان رسیده است. لطفاً چند دقیقه دیگر تلاش کنید.");
+      throw new Error("سهمیه جستجوی رایگان به پایان رسیده است. لطفاً ۱ یا ۲ دقیقه صبر کرده و دوباره تلاش کنید یا از کلید اختصاصی خود استفاده کنید.");
     }
     if (e.message?.includes("403") || e.message?.includes("permission")) {
-      throw new Error("خطای دسترسی به API. لطفاً تنظیمات کلید خود را بررسی کنید.");
+      throw new Error("خطای دسترسی به API. لطفاً تنظیمات کلید خود را در Vercel یا AI Studio بررسی کنید.");
     }
-    throw new Error("خطا در برقراری ارتباط با سرور جستجو. لطفاً دوباره تلاش کنید.");
+    throw new Error("خطا در برقراری ارتباط با سرور هوش مصنوعی. لطفاً دوباره تلاش کنید.");
   }
 }
