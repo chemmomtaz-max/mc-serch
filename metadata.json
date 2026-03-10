@@ -1,0 +1,7 @@
+{
+  "name": "MC LEAD Intelligence",
+  "description": "Global AI-powered lead generation engine. Deep-search, translate, and extract verified business leads across 50+ languages and regions.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}

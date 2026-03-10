@@ -1,0 +1,15 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Eagle Head (Blue) -->
+  <path d="M70 40C70 40 90 20 130 20C170 20 185 50 185 50C185 50 170 35 145 35C120 35 100 60 100 60L70 40Z" fill="#0000FF"/>
+  <path d="M100 60C100 60 115 85 145 85C175 85 190 60 190 60C190 60 175 75 150 75C125 75 110 55 110 55L100 60Z" fill="#0000FF"/>
+  <path d="M130 20C140 20 150 25 160 30L150 25C140 20 130 20 130 20Z" fill="#0000FF"/>
+  
+  <!-- Wings/Feathers (Black) -->
+  <path d="M30 60L70 50L30 40L60 50L30 60Z" fill="black"/>
+  <path d="M40 80L80 70L40 60L70 70L40 80Z" fill="black"/>
+  <path d="M50 100L90 90L50 80L80 90L50 100Z" fill="black"/>
+  <path d="M60 120L100 110L60 100L90 110L60 120Z" fill="black"/>
+  
+  <!-- MC Text -->
+  <text x="75" y="170" font-family="Georgia, serif" font-size="48" font-weight="bold" fill="black">MC</text>
+</svg>
