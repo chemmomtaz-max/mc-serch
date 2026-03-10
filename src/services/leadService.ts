@@ -124,29 +124,30 @@ export async function generateLeads(chemical: string, region: string, retryCount
 
     if (e.message?.includes("429") || e.message?.includes("quota")) {
       console.log("Using mock data due to quota limit...");
+      const errorDetail = e.message || "Unknown Quota Error";
       // Fallback to mock data so the user can see the UI
       return [
         {
-          companyName: "Sample Chemical Corp",
-          website: "https://example.com",
-          category: "Manufacturer",
-          phone: "+1 234 567 890",
-          email: "info@samplechem.com",
-          socialMedia: "https://linkedin.com/company/sample",
-          city: "New York",
+          companyName: "نتایج واقعی در دسترس نیست",
+          website: "#",
+          category: "خطای سهمیه",
+          phone: "---",
+          email: "---",
+          socialMedia: "#",
+          city: "خطا",
           country: region,
-          reasoning: "این یک نتیجه نمونه است زیرا سهمیه API شما تمام شده است. برای نتایج واقعی، کلید خود را در تنظیمات وارد کنید."
+          reasoning: `متأسفانه گوگل اجازه جستجوی زنده را نداد. علت: ${errorDetail}. این یعنی حتی با کلید شخصی شما، سهمیه جستجوی رایگان گوگل (که بسیار محدود است) پر شده است. لطفاً ۲ دقیقه دیگر دوباره دکمه Explore را بزنید.`
         },
         {
-          companyName: "Global Solvent Ltd",
-          website: "https://example.com",
-          category: "Distributor",
-          phone: "+44 20 1234 5678",
-          email: "sales@globalsolvent.com",
-          socialMedia: "https://linkedin.com/company/globalsolvent",
-          city: "London",
+          companyName: "راهنمای حل مشکل",
+          website: "https://aistudio.google.com",
+          category: "آموزشی",
+          phone: "---",
+          email: "---",
+          socialMedia: "#",
+          city: "تنظیمات",
           country: region,
-          reasoning: "این یک نتیجه نمونه است. لطفاً کلید API شخصی خود را در بخش Settings وارد کنید."
+          reasoning: "اگر کلید خود را تازه ساخته‌اید، چند دقیقه صبر کنید تا فعال شود. همچنین مطمئن شوید که در پنل Google AI Studio، قابلیت Google Search برای کلید شما فعال باشد."
         }
       ];
     }
