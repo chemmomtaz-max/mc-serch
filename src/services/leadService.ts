@@ -123,7 +123,32 @@ export async function generateLeads(chemical: string, region: string, retryCount
     }
 
     if (e.message?.includes("429") || e.message?.includes("quota")) {
-      throw new Error("سهمیه جستجوی رایگان به پایان رسیده است. لطفاً ۱ یا ۲ دقیقه صبر کرده و دوباره تلاش کنید یا از کلید اختصاصی خود استفاده کنید.");
+      console.log("Using mock data due to quota limit...");
+      // Fallback to mock data so the user can see the UI
+      return [
+        {
+          companyName: "Sample Chemical Corp",
+          website: "https://example.com",
+          category: "Manufacturer",
+          phone: "+1 234 567 890",
+          email: "info@samplechem.com",
+          socialMedia: "https://linkedin.com/company/sample",
+          city: "New York",
+          country: region,
+          reasoning: "این یک نتیجه نمونه است زیرا سهمیه API شما تمام شده است. برای نتایج واقعی، کلید خود را در تنظیمات وارد کنید."
+        },
+        {
+          companyName: "Global Solvent Ltd",
+          website: "https://example.com",
+          category: "Distributor",
+          phone: "+44 20 1234 5678",
+          email: "sales@globalsolvent.com",
+          socialMedia: "https://linkedin.com/company/globalsolvent",
+          city: "London",
+          country: region,
+          reasoning: "این یک نتیجه نمونه است. لطفاً کلید API شخصی خود را در بخش Settings وارد کنید."
+        }
+      ];
     }
     if (e.message?.includes("403") || e.message?.includes("permission")) {
       throw new Error("خطای دسترسی به API. لطفاً تنظیمات کلید خود را در Vercel یا AI Studio بررسی کنید.");
