@@ -98,7 +98,12 @@ export default function App() {
       }
     } catch (err: any) {
       console.error(err);
-      setError(err.message || "خطایی در هنگام جستجو رخ داد. لطفاً دوباره تلاش کنید.");
+      const isQuotaError = err.message?.includes("سهمیه") || err.message?.includes("429");
+      if (isQuotaError) {
+        setError("سهمیه جستجوی لحظه‌ای شما تمام شده است. گوگل در نسخه رایگان محدودیت '۱ جستجو در دقیقه' دارد. لطفاً ۱ دقیقه صبر کرده و دوباره دکمه Explore را بزنید.");
+      } else {
+        setError(err.message || "خطایی در هنگام جستجو رخ داد. لطفاً دوباره تلاش کنید.");
+      }
     } finally {
       setIsLoading(false);
     }
